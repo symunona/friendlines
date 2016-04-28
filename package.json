@@ -1,6 +1,6 @@
 {
   "name": "friendlines",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Shows you who did you hang out with as time passed",
   "author": "Goose <symunona@gmail.com>",
   "dependencies": {
@@ -12,6 +12,7 @@
     "jsonfile": "^2.2.3",
     "knockout": "^3.4.0",
     "less": "^2.6.0",
+	"mkdirp": "^0.5.1",
     "moment": "^2.1.0",
     "moment-parseformat": "git+https://github.com/symunona/moment-parseformat.git",
     "mysql": "^2.10.2",
