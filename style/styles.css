@@ -1,0 +1,211 @@
+body {
+  font-family: Verdana;
+  font-size: 10px;
+}
+header #primary-navigation {
+  background: #3b5998;
+  color: white;
+  padding: 11px;
+  font-size: large;
+}
+#userfilter > span {
+  color: white;
+  display: inline-block;
+  padding: 4px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+#filterloader {
+  text-align: right;
+}
+path.highlight {
+  fill: red;
+}
+path.highlight2 {
+  fill: #ff5500;
+}
+path.highlight3 {
+  fill: green;
+}
+path.entering {
+  fill: none !important;
+}
+path.entering.highlight {
+  stroke: red;
+}
+path.entering.highlight2 {
+  stroke: #ff5500;
+}
+path.entering.highlight3 {
+  stroke: green;
+}
+line.highlight {
+  stroke: red;
+}
+line.highlight2 {
+  stroke: #ff5500;
+}
+line.highlight3 {
+  stroke: green;
+}
+.highlight > rect,
+circle.highlight {
+  fill: red;
+}
+.highlight2 > rect,
+circle.highlight2 {
+  fill: #ff5500;
+}
+.highlight3 > rect,
+circle.highlight3 {
+  fill: green;
+}
+#statlist > li {
+  display: inline-block;
+}
+ul > li {
+  margin-right: 20px;
+}
+ul > li > a {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.selected {
+  font-weight: bold;
+}
+text {
+  cursor: pointer;
+}
+#filter {
+  padding: 10px;
+}
+#filter input[type='number'] {
+  width: 30px;
+}
+#filter table td {
+  border: 1px solid #eee;
+  padding: 5px;
+}
+/* RESET */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="author" content="Goose" />
+    <meta name="copyright" content="MIT" />
+    <meta name="robots" content="index, follow" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!--<link rel="stylesheet" type="text/css" href="style/styles.css" />-->
+    <link rel="stylesheet" type="text/less" href="style/styles.less" />
+    <script src="node_modules/less/dist/less.min.js" type="text/javascript"></script>
+
+
+    <title>FriendLines</title>
+
+    <link rel="Shortcut Icon" href="assets/logo.png" type="image/x-icon" />
+    <!--<link rel="stylesheet" href="css/print.css" type="text/css" media="print" />-->
+    <!--<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen,projection" />-->
+    <link rel="index" title="" href="" />
+
+    <!--[if lt IE 9 ]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+    <style>
+
+    </style>
+
+</head>
+
+<body lang="en-US">
+
+    <section id="content">
+
+        <div id="timeline"></div>
+
+        <div data-bind="visible: error() == 'nofile'">
+            <div class="alert">
+                <p class="alert">There is no data to display in the folder. </p>
+            </div>
+            <p>&nbsp;</p>
+            <p>Did you run the data extractor?</p>
+            <p>If you just checked out the repot, run <i>"npm install"</i> </p>
+            <p>After it is installed, in the command line, type <i>"node ."</i></p>
+            <p>Then try refreshing this site</p>
+        </div>
+        <div data-bind="visible: error(), text: error"></div>
+
+
+    </section>
+
+    <header id="primary-header">
+        <nav id="primary-navigation">
+            <!--<span class="morepage"><a data-bind="attr: { src: linkroot }" target="_blank">more info online</a></span>-->
+            <ul id='statlist'>
+                <li><img src='assets/logo.png' class="headericon">FriendLines 0.1</li>
+                <!-- ko foreach: statUsers()-->
+                <li>
+                    <a data-bind="
+                            click: $root.switchUser,
+                            text: name, 
+                            css: {selected: $root.activeStatUser()?$root.activeStatUser() == $data.name:false}"></a>
+                </li>
+                <!-- /ko -->
+                
+            </ul>            
+            
+        </nav>
+        
+        <div class='tmp'><a href="http://theminimalproject.dyndns.hu" target="_blank">™P</a></div>
+    </header>
+
+    <div id="content-wrapper">
+        <div class="loading" data-bind="visible: loading()">
+            <span id='status' data-bind="text: status"></span>
+        </div>
+        <header class='contorlline'>
+            <p class='filtertoggler'>
+                <a data-bind="click: filterVisible.bind(this,!filterVisible())">Filter: <span data-bind="text: filterVisible()?'-':'+'"></span> </a>
+            </p>
+            <p class='userstoggler'>
+                <a data-bind="click: usersVisible.bind(this,!usersVisible())">Users <span data-bind="text: usersVisible()?'-':'+'"></span> </a>
+            </p>
+            <!--<p class='searchtoggler'>
+                    <a data-bind="click: searchVisible.bind(this,!searchVisible())">Search<span class='searchindicator'></span> <a onclick='resetSearch()', style="display: none">x</a> </a>
+                </p>-->
+            <p class='graphselector'>
+                <span>Graphs: </span>
+                <!-- ko foreach: processors-->
+                <a data-bind="  attr: {'data-index': $index}, 
+                                    text: name, 
+                                    click: $root.switchProcessor, 
+                                    css:{active: $root.actualProcessor()?$root.actualProcessor().name == name:false}"></a>
+                <!-- /ko -->
+            </p>
+        </header>
+        <header id="search" data-bind="visible: searchVisible()">
+            <form onsubmit='search(event);'>
+                <label>Search</label>
+                <input type="search" id='keyword'>
+                <button type="submit">Go</button>
+            </form>
+        </header>
+        <header id="filter" data-bind="visible: filterVisible()">
+            <form data-bind="submit: applyFilter, with: actualFilter">
+                <table>
+                    <tr>
+                        <td>Filter</td>
+                        <td title="Filter people who does not have at least this many messages sent to each other" class="info">Min sum count</td>
+                        <td title="Filter people who does not have at least this amount of characters sent to each other" class="info">Min sum length</td>
+                        <td title="Filter people who does not have at least this many months in a role where you exchanged messages" class="info">At least this many active month</td>
+                        <td title="Use this number, to drop months below a number of messages, so they count as inactive" class="info">minimum month message</td>
+                        <td>order by 1</td>
+                        <td>order by 2</td>
+                        <td>Descending</td>
+                    </tr>
+                    <tr>
+                        <td><input type="submit" value="Go!"></td>
+                        <td><input id="minsumcount" type="number" data-bind="value: min.cnt, enable: editable"></td>
+                        <td><input id="minsumlength" type="number" data-bind="value: min.leng, enable: editable"></td>
+                        <td><input id="minactivefollowinmonth" type="number" data-bind="value: minMonth.repeat, enable: editable"></td>
+                        <td><input id="minmonthcount" type="number" data-bind="value: minMonth.cnt, enable: editable"></td>
+                        <td>
+                            <select id="orderby1" data-bind="options: $root.consts.orderBys, optionsText: 'name', optionsValue: 'val', value: orderBy[0], enable: editable"></select>
+                        </td>
+                        <td>
+                            <select id="orderby2" data-bind="options: $root.consts.orderBys, optionsText: 'name', optionsValue: 'val', value: orderBy[1], enable: editable"></select>
+                        </td>
+                        <td><input type="checkbox" id="descendingOrderBy" data-bind="checked: descendingOrderBy, enable: editable"></td>
+                    </tr>
+                </table>
+            </form>
+            <div id='filterloader' data-bind="with: actualFilter()">
+                Filters
+                <button id="duplicateFilter" data-bind="click: $root.duplicateFilter">Make new from this</button>
+                <!--<button id="savebutton" onclick="saveFilter()">Save</button>-->
+                <input type="text" data-bind="value: name, enable: editable">
+                <select id="filters" data-bind="options: $root.filters, optionsText: 'name', value: $root.actualFilter, valueAllowUnset: true"></select>
+                <button id="deletebutton" data-bind="click: $root.deleteFilter, enable: editable">X</button>
+                <button id="resetBtn" data-bind="click: $root.reset">Reset</button>
+
+            </div>
+        </header>
+        <header data-bind="visible: usersVisible()">
+            <div id="userfilter" data-bind="foreach: userFilterList">
+                <span data-bind="style: {'background-color': isIn()?$root.userFilterMap()[userid]?$root.userFilterMap()[userid].color:'black':'#d1d1d1'}">
+                        <span data-bind="text: name"></span>
+                <input type="checkbox" data-bind="checked: isIn, visible: $root.filterVisible()">
+                </span>
+
+            </div>
+        </header>
+
+
+        <aside id="right">
+        </aside>
+
+    </div>
+
+    <footer class='statusfooter' data-bind="click: statusVisible.bind(this,!statusVisible()), css:{open: statusVisible()}">
+
+
+        <button class="sharebutton" data-bind="click: share, css: {disabledHighlight: shareVisible()}">Share</button>
+        <span class="caret" data-bind="text: statusVisible()?'▼':'more info ▲'"></span>
+        
+        
+        <div id='statusloading'></div>
+        <span id='status' data-bind="text: status, style:{'color':statusColor()==defaultStatusColor?'black':'white','background-color':statusColor()}"></span>
+        <div class="userinfo">
+            <!--<h2 data-bind="text: selectedUser"></h2>-->
+            <div data-bind="if: selectedUser()">
+                <table class="sumdata">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Inbound</th>
+                            <th></th>
+                            <th>Outbound</th>
+                            <th></th>
+                            <th>Sum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- ko foreach: Object.keys(userFilterMap()[selectedUser()].sums.sum) -->
+                        <tr data-bind="attr:{title: $root.emotions[$data]?$root.emotions[$data].join(' '):''}">
+                            <td data-bind="text: $data"></td>
+                            <td data-bind="text: $root.userFilterMap()[$root.selectedUser()].sums.inbound[$data]"></td>
+                            <td data-bind="text: $data"></td>
+                            <td data-bind="text: $root.userFilterMap()[$root.selectedUser()].sums.outbound[$data]"></td>
+                            <td data-bind="text: $data"></td>
+                            <td data-bind="text: $root.userFilterMap()[$root.selectedUser()].sums.sum[$data]"></td>
+                        </tr>
+                        <!-- /ko -->
+                    </tbody>
+                </table>
+                
+                * These statistics are provided by the emoticons used in messages, according to <a href="#" onclick="event.preventDefault(); event.stopPropagation(); window.open('https://en.wikipedia.org/wiki/List_of_emoticons')">Wikipedia's table</a>.
+                
+            </div>
+             
+        </div>
+        
+    </footer>
+    <div id="share" data-bind="visible: shareVisible(), with: uploadModel()">
+        <div class="loading" data-bind="visible: $root.loading()"></div>
+        <div id="contribute">
+            <button class="closebutton" data-bind="click: $root.shareVisible.bind(this,false)">X</button>
+            <h2>Share</h2>
+            <p>&nbsp;</p>
+            <input id='nameinput' type="text" data-bind="value: name" placeholder="name of your image">
+            <p>Please position the image where you want it to be (mousescroll and drag)</p>
+            <div id="uploadpreview"></div>
+                            
+            <p>Comment:</p>
+            <textarea data-bind="value: comment" placeholder="What are we seeing?"></textarea>
+            
+            <p>Want to contribute to <a href="http://friendlines.dyndns.hu/galery" target="about:blank">my galery</a>? 
+                <input type="checkbox" data-bind="checked: public">            
+            </p>
+            <p><i>Note: We store no personal data of you by any means. Your contribution is completely anonymous.</i></p>
+            
+            <p><i title="this is helping me 
+            determine the best default settings for the filter">Note:
+            Things what you upload with hitting ok: this SVG, 
+            and your filter settings.</i></p>            
+            <p>Once you shared it, you will get a link to send and a facebook share button!</p>
+            
+            <textarea rows="1" cols="50" onclick="this.focus();this.select()" readonly="readonly"
+                data-bind="value: $root.link" placeholder="url will appear here">                
+            </textarea>
+            <div class="center">
+                <button data-bind="click: $root.upload, visible: !$root.link()" class="sharebuttonform">Share</button>
+                <button data-bind="click: $root.upload, visible: $root.link()" class="newshare">Create new share</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="node_modules/knockout/build/output/knockout-latest.debug.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/js-cookie/src/js.cookie.js"></script>
+    <script src="node_modules/chartjs/chart.js"></script>
+    <script src="node_modules/moment/min/moment.min.js"></script>
+    <script src="node_modules/svg.js/dist/svg.js"></script>
+    <script src="node_modules/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
+    <script src="node_modules/tinycolor2/tinycolor.js"></script>
+    <script src="lib/utils/knockout.wrap.js"></script>
+
+
+    <!--<script src="lib/vendor/svg.filter.min.js"></script>-->
+    <script src="lib/consts.js"></script>
+    <script src="lib/consts.js"></script>
+    <script src="lib/client/client-utils.js"></script>
+    <script src="lib/client/processstats.1.js"></script>
+    <script src="lib/client_app.js"></script>
+
+</body>
+
+</html>

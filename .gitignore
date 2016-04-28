@@ -1,0 +1,14 @@
+html
+photos
+node_modules
+stat.sqlite
+*.zip
+tmp
+*_zip
+*.sqlite
+stats*.json
+stats.json
+statlist.json
+temp/*
+.vscode/
+

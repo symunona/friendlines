@@ -1,0 +1,238 @@
+@highlight1: red;
+@highlight2: #ff5500;
+@highlight3: green;
+
+@padding: 11px;
+
+body{
+    font-family: Verdana;
+   font-size: 10px;
+}
+
+header{
+    background-color: rgba(255,255,255,.65);
+    position: relative;
+    .headericon{ width: 16px; height: 16px}
+    #primary-navigation{
+        background: #3b5998; color: white; font-size: large;
+        padding: @padding;
+    }
+
+    line-height: 1.3em; padding-top: 3px;
+
+    .graphselector{
+
+        padding-left: @padding;
+        a{
+            text-decoration: underline; cursor: pointer;
+            &.active{ font-weight: bold; }
+        }
+    }
+    .filtertoggler, .searchtoggler, .userstoggler{ float: right; cursor: pointer; margin-right: 10px; &:hover{text-decoration: underline;}}
+
+    &#search{
+        height: 40px;
+        line-height: 40px;
+        padding: @padding @padding @padding @padding;
+    }
+    #resetBtn{float: right;}
+    
+}
+
+
+.blur{ filter:blur(4px); -o-filter:blur(4px); -ms-filter:blur(4px); -moz-filter:blur(4px); -webkit-filter:blur(4px);}
+
+.loading, .overlay{
+    position: absolute; z-index: 9999;
+    height: 100%; width: 100%; top: 0; left: 0;
+    background-color: rgba(128,128,128,0.5);
+}
+.loading{
+    background-image: url('loading.gif');  
+    background-position: center center; background-repeat: no-repeat;
+    
+    text-align: center; line-height: 500px;
+}
+
+#statusloading{
+    float: right; display: none;
+    width: 16px; height:16px; margin-top: 8px;
+    background-image: url('loading.gif');
+    
+}
+.statusfooter{
+    width: 100%; bottom: 0px; height: 32px; padding-left: 10px;
+    position: fixed; overflow: hidden; cursor: pointer;    
+    background: #efefef;
+    
+    &.open{ overflow-y: auto; height: 30%; }
+        
+    .caret{ float:right; margin-right:32px; line-height: 32px; }
+    #status { line-height: 32px; padding: 4px; }        
+    table {
+        margin-bottom: 5px;
+        tr:hover > td { background-color: #fff }
+        td, th{ padding-right: 10px; padding-left: 10px; }
+    }
+}
+
+
+#userfilter{
+    padding-top: 6px; margin-left: @padding;
+    &>span{
+        color: white; display: inline-block; cursor: pointer;
+        padding: 2px; margin-right: 6px; margin-bottom: 6px;
+    }
+}
+
+#content{
+    height: calc( 100% );
+    width: 100%; overflow: hidden;
+    position: absolute; z-index: -1; left: 0
+}
+
+#filterloader{
+    text-align: right; margin-bottom: 4px; margin-top: 4px;
+}
+
+
+path {
+    &.highlight{ fill: @highlight1; }
+    &.highlight2{ fill: @highlight2; }
+    &.highlight3{ fill: @highlight3; }
+
+    &.entering{
+        fill: none !important;
+        &.highlight{ stroke: @highlight1}
+        &.highlight2{ stroke: @highlight2}
+        &.highlight3{ stroke: @highlight3}
+    }
+}
+line{
+    &.highlight{ stroke: @highlight1}
+    &.highlight2{ stroke: @highlight2}
+    &.highlight3{ stroke: @highlight3}
+}
+
+.highlight > rect, circle.highlight{ fill: @highlight1; }
+.highlight2 > rect, circle.highlight2{ fill: @highlight2; }
+.highlight3 > rect, circle.highlight3{ fill: @highlight3; }
+
+#statlist > li{ display: inline-block; img{margin-right: 10px}}
+ul > li{ margin-right: 20px; }
+ul > li > a{ cursor: pointer; text-decoration: underline;                 }
+.selected{ font-weight: bold; }
+text{ cursor: pointer; }
+
+#filter {
+    form{ padding: 10px; }
+    input[type='number']{ width: 40px; }
+    table td{ border: 1px solid #eee;padding: 5px; }
+    .info{ cursor: pointer }
+}
+
+.hidden{display: none}
+
+.alert{ font-size: large; line-height: 2em }
+p.alert{ color: red;  }
+
+
+.sharebutton{
+    background-color: #ff5500; color: white; 
+    float: right; margin-right: 20px;
+    border-radius: 13px; height: 26px; line-height: 26px;
+    padding: 0 10px 10px; margin-top: 2px;
+    &.disabledHighlight{
+        background-color: grey;
+    }
+}
+.sharebuttonform{
+    .sharebutton;
+    float: none; 
+    margin-top: 10px;
+}
+.newshare{
+    margin-top: 10px;
+}
+
+
+.closebutton{position: absolute; right: -10px; top:-10px; width:30px; height: 30px; border-radius: 15px; border: 1px solid #555; line-height: 30px; cursor:pointer;
+    &:hover{background: white;}
+}
+
+#share{
+     .overlay;    
+}
+
+#contribute{
+    position: absolute; width: 600px; height: 500px;
+    left: ~"calc( 50% - 300px )"; top:  ~"calc( 50% - 250px )";
+    background: white; padding: 20px; border-radius: 25px;
+    border: 1px solid #777;
+    
+    textarea{ width: 596px; resize: none;}
+    p{ line-height: 2em; }    
+}
+#uploadpreview{
+    width: 600px; height: 200px; cursor: move;
+    overflow: hidden; border: 1px solid #aaa;
+}
+
+.center{text-align: center;}
+
+.tmp > a{
+    position: absolute; bottom: 5px; right: 5px; 
+    color: white; text-decoration: none;
+    &:hover{text-decoration: underline;}    
+}
+
+.morepage{float: right}
+
+
+
+
+/* RESET */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+
+
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
