@@ -1,5 +1,5 @@
 {
-  "name": "face-history-parser",
+  "name": "friendlines",
   "version": "0.0.2",
   "description": "Shows you who did you hang out with as time passed",
   "author": "Goose <symunona@gmail.com>",
@@ -17,7 +17,7 @@
     "mysql": "^2.10.2",
     "node-static": "^0.7.7",
     "open": "0.0.5",
-    "progress": "^1.1.8",    
+    "progress": "^1.1.8",
     "sql.js": "git+https://github.com/kripken/sql.js.git",
     "svg-pan-zoom": "github:ariutta/svg-pan-zoom",
     "svg.js": "git+https://github.com/wout/svg.js.git",
@@ -28,5 +28,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/symunona/friendlines.git"
+  },
+  "keywords": [
+    "facebook",
+    "analyze",
+    "data",
+    "visualize",
+    "data",
+    "history",
+    "people",
+    "connections"
+  ],
+  "bugs": {
+    "url": "https://github.com/symunona/friendlines/issues"
+  },
+  "homepage": "https://github.com/symunona/friendlines#readme"
 }
