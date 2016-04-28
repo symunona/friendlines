@@ -1,6 +1,6 @@
 {
   "name": "friendlines",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Shows you who did you hang out with as time passed",
   "author": "Goose <symunona@gmail.com>",
   "dependencies": {
